@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import OpenAI from 'openai';
+import { pipeline } from '@xenova/transformers';
 import { parseCliArgs } from './cliArgs.js';
 import { buildSystemPrompt, buildUserPrompt } from './prompts.js';
 import { writeBriefsToFile } from './outputWriter.js';
@@ -66,7 +67,7 @@ function parseSingleBrief(json: unknown): ProjectBrief {
   return result.data;
 }
 
-async function insertBriefInDB(supabaseClient: any, brief: ProjectBrief) {
+async function insertBriefInDB(supabaseClient: any, brief: ProjectBrief, embedding: number[]) {
   const briefRow = {
     level: brief.level,
     domain: brief.domain,
@@ -81,6 +82,7 @@ async function insertBriefInDB(supabaseClient: any, brief: ProjectBrief) {
     assessment_criteria: brief.assessment_criteria,
     company_size: brief.company_size,
     complexity: brief.complexity,
+    embedding: embedding,
   };
 
   const { data, error } = await supabaseClient
@@ -122,6 +124,8 @@ async function insertBriefInDB(supabaseClient: any, brief: ProjectBrief) {
 }
 
 async function main() {
+  const generateEmbedding = await pipeline('feature-extraction', 'Supabase/gte-small');
+
   const supabaseClient = getSupabaseClient();
   const cliArgs = parseCliArgs();
   const systemPrompt = buildSystemPrompt();
@@ -137,7 +141,15 @@ async function main() {
   const insertionSummaries = [];
   
   for (const brief of briefs) {
-    const result = await insertBriefInDB(supabaseClient, brief);
+    // Generate a vector using Transformers.js
+    const output = await generateEmbedding(JSON.stringify(brief), {
+      pooling: 'mean',
+      normalize: true,
+    })
+    // Extract the embedding output
+    const embedding = Array.from(output.data)
+
+    const result = await insertBriefInDB(supabaseClient, brief, embedding);
     insertionSummaries.push(result);
   }
 

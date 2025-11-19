@@ -1,0 +1,62 @@
+{
+  "level": "junior",
+  "domain": "EdTech",
+  "tech_focus": "backend",
+  "stack": [
+    "Node",
+    "TypeScript",
+    "Supabase"
+  ],
+  "duration": "2 weeks",
+  "brief": "Develop a backend API to manage student assessments and feedback.",
+  "business_problem": "Educational institutions struggle to provide timely feedback on assessments, impacting student performance. A streamlined system is essential for enhancing learning outcomes and engagement.",
+  "target_users": "Educators and students using an online learning platform",
+  "goals": [
+    "Create endpoints for submitting and retrieving assessments",
+    "Implement user authentication and authorization",
+    "Integrate feedback submission for assessments"
+  ],
+  "deliverables": [
+    "RESTful API documentation",
+    "Fully functional backend service",
+    "Unit tests for critical endpoints"
+  ],
+  "assessment_criteria": "API performance, security measures, and alignment with educational needs",
+  "company_size": "Startup",
+  "complexity": "medium",
+  "user_stories": [
+    {
+      "title": "Submit student assessments",
+      "description": "As an educator, I want to submit student assessments so that they can receive timely feedback.",
+      "acceptance_criteria": [
+        "Given I am authenticated, when I submit an assessment, it is stored in the database.",
+        "The system confirms submission with a success message.",
+        "I can view a list of submitted assessments with their status."
+      ],
+      "priority": "high",
+      "complexity": "medium"
+    },
+    {
+      "title": "Retrieve assessment feedback",
+      "description": "As a student, I want to retrieve feedback on my assessments to understand my performance.",
+      "acceptance_criteria": [
+        "Given I am logged in, when I request feedback, I receive it in a structured format.",
+        "Feedback includes scores and comments from the educator.",
+        "I can view feedback for all my submitted assessments."
+      ],
+      "priority": "high",
+      "complexity": "medium"
+    },
+    {
+      "title": "Authenticate users securely",
+      "description": "As a user, I want to securely log in to access my assessments and feedback.",
+      "acceptance_criteria": [
+        "Given I enter valid credentials, I am granted access to the system.",
+        "Invalid credentials result in an error message.",
+        "Sessions are managed securely to prevent unauthorized access."
+      ],
+      "priority": "medium",
+      "complexity": "medium"
+    }
+  ]
+}
