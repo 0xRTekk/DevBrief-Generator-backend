@@ -5,7 +5,7 @@ import { buildSystemPrompt, buildUserPrompt } from './prompts.js';
 import { writeBriefsToFile } from './outputWriter.js';
 import { createOpenAIClient } from './openaiClient.js';
 import { createSupabaseClient } from './supabaseClient.js';
-import { briefSchema } from './schema/brief.js';
+import { briefSchema, type ProjectBrief } from './schema/brief.js';
 
 async function getOpenAIClient() {
   const apiKey = process.env.OPENAI_API_KEY;
@@ -51,18 +51,74 @@ async function writeBriefsToFilepath(briefs: unknown) {
   return filePath;
 }
 
-async function validateJsonFormat(json: unknown): Promise<void> {
+function parseBriefs(json: unknown): ProjectBrief[] {
   if (Array.isArray(json)) {
-    for (const item of json) {
-      await validateJsonFormat(item);
-    }
-    return;
+    return json.map(parseSingleBrief);
   }
+  return [parseSingleBrief(json)];
+}
 
+function parseSingleBrief(json: unknown): ProjectBrief {
   const result = briefSchema.safeParse(json);
   if (!result.success) {
     throw new Error(`Invalid JSON format: ${result.error.message}`);
   }
+  return result.data;
+}
+
+async function insertBriefInDB(supabaseClient: any, brief: ProjectBrief) {
+  const briefRow = {
+    level: brief.level,
+    domain: brief.domain,
+    tech_focus: brief.tech_focus,
+    stack: brief.stack,
+    duration: brief.duration,
+    brief: brief.brief,
+    business_problem: brief.business_problem,
+    target_users: brief.target_users,
+    goals: brief.goals,
+    deliverables: brief.deliverables,
+    assessment_criteria: brief.assessment_criteria,
+    company_size: brief.company_size,
+    complexity: brief.complexity,
+  };
+
+  const { data, error } = await supabaseClient
+    .from('briefs')
+    .insert(briefRow)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error(`Error inserting brief into database: ${error.message}`);
+  }
+
+  const briefId = data.id;
+
+  const userStoryRows = brief.user_stories.map((story, index) => ({
+    brief_id: briefId,
+    story_order: index + 1,
+    title: story.title,
+    description: story.description,
+    acceptance_criteria: story.acceptance_criteria,
+    priority: story.priority,
+    complexity: story.complexity,
+  }));
+
+  const { error: userStoriesError } = await supabaseClient
+    .from('brief_user_stories')
+    .insert(userStoryRows);
+
+  if (userStoriesError) {
+    throw new Error(`Error inserting brief user stories into database: ${userStoriesError.message}`);
+  }
+
+  console.log('Brief inserted into database with ID:', briefId);
+
+  return {
+    brief: data,
+    userStoriesInserted: userStoryRows.length,
+  };
 }
 
 async function main() {
@@ -73,8 +129,19 @@ async function main() {
   const targetModel = 'gpt-4o-mini';
 
   const client = await getOpenAIClient();
-  const jsonParsedResponse = await getResponseFromOpenAI(client, userPrompt, systemPrompt, targetModel);
-  await validateJsonFormat(jsonParsedResponse);
+  const jsonParsedResponse = await getResponseFromOpenAI(client, userPrompt, systemPrompt, targetModel)
+  console.log('jsonParsedResponse : ', jsonParsedResponse);
+  const briefs = parseBriefs(jsonParsedResponse);
+  console.log('parsed briefs : ', briefs);
+
+  const insertionSummaries = [];
+  
+  for (const brief of briefs) {
+    const result = await insertBriefInDB(supabaseClient, brief);
+    insertionSummaries.push(result);
+  }
+
+  console.log('Inserted Briefs:', insertionSummaries);
   await writeBriefsToFilepath(jsonParsedResponse);
 }
 
