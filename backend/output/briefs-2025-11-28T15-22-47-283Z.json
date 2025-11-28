@@ -1,0 +1,61 @@
+{
+  "level": "junior",
+  "domain": "health insurance",
+  "tech_focus": "frontend",
+  "stack": [
+    "React.js",
+    "GSAP"
+  ],
+  "duration": "2 weeks",
+  "brief": "Create an interactive health insurance plan comparison tool for users.",
+  "business_problem": "Consumers struggle to understand complex health insurance options, leading to poor choices. This confusion results in inadequate coverage and financial strain during medical emergencies.",
+  "target_users": "Individuals seeking health insurance plans for themselves or their families",
+  "goals": [
+    "Develop an intuitive comparison interface for multiple insurance plans",
+    "Animate transitions for better user engagement and understanding",
+    "Implement tooltips to explain key insurance terms and features"
+  ],
+  "deliverables": [
+    "Interactive health insurance comparison web app",
+    "User guide for navigating the tool",
+    "Documentation on code structure and design decisions"
+  ],
+  "assessment_criteria": "User engagement metrics, code maintainability, and alignment with user needs",
+  "company_size": "Startup",
+  "complexity": "medium",
+  "user_stories": [
+    {
+      "title": "Compare multiple insurance plans",
+      "description": "As a user, I want to compare different insurance plans side by side to make informed decisions.",
+      "acceptance_criteria": [
+        "Given I am on the comparison page, I can select multiple plans to compare.",
+        "The comparison displays key features and costs clearly for each plan.",
+        "I can easily remove plans from the comparison view at any time."
+      ],
+      "priority": "high",
+      "complexity": "medium"
+    },
+    {
+      "title": "View animated transitions",
+      "description": "As a user, I want smooth animations when switching between plans to enhance my experience.",
+      "acceptance_criteria": [
+        "Given I select a new plan, the transition should animate smoothly within one second.",
+        "Animations should not hinder the loading of new information.",
+        "I can toggle animations on or off in the settings."
+      ],
+      "priority": "high",
+      "complexity": "medium"
+    },
+    {
+      "title": "Access tooltips for insurance terms",
+      "description": "As a user, I want tooltips to explain insurance terms so I can understand my options better.",
+      "acceptance_criteria": [
+        "Given I hover over any term, a tooltip appears with a clear definition.",
+        "Tooltips should not obstruct other content on the page.",
+        "I can access a glossary of terms from the main menu."
+      ],
+      "priority": "medium",
+      "complexity": "medium"
+    }
+  ]
+}

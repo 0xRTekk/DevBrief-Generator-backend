@@ -1,0 +1,33 @@
+meta {
+  name: Generate brief
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/api/briefs/generate
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "level": "senior",
+    "domain": "FinTech",
+    "tech_focus": "backend",
+    "stack": [
+      "Node.js",
+      "PostgreSQL"
+    ],
+    "duration": "4 weeks",
+    "count": 1
+  }
+}
+
+settings {
+  encodeUrl: false
+}

@@ -1,0 +1,62 @@
+{
+  "level": "intermediate",
+  "domain": "EdTech",
+  "tech_focus": "fullstack",
+  "stack": [
+    "React.js",
+    "Node.js",
+    "PostgreSQL"
+  ],
+  "duration": "4 weeks",
+  "brief": "Develop an interactive learning platform for personalized student experiences.",
+  "business_problem": "Educational institutions struggle to engage students with one-size-fits-all content. Tailored learning experiences are essential for improving retention and performance.",
+  "target_users": "Students and educators using the learning platform",
+  "goals": [
+    "Create user profiles to customize learning paths",
+    "Implement real-time progress tracking and feedback",
+    "Develop a resource library with search and filter options"
+  ],
+  "deliverables": [
+    "Fully functional web application with user authentication",
+    "API documentation for integration with third-party tools",
+    "User manual for educators on platform features"
+  ],
+  "assessment_criteria": "User engagement metrics, code maintainability, and alignment with educational standards",
+  "company_size": "Startup",
+  "complexity": "medium",
+  "user_stories": [
+    {
+      "title": "Customize learning paths for students",
+      "description": "As a student, I want to have a personalized learning path so I can focus on my strengths and weaknesses.",
+      "acceptance_criteria": [
+        "Given I log in, when I access my profile, I see recommended courses based on my previous performance.",
+        "When I select a course, it updates my learning path accordingly.",
+        "The system prompts me to adjust my path based on new interests or goals."
+      ],
+      "priority": "high",
+      "complexity": "medium"
+    },
+    {
+      "title": "Track progress in real-time",
+      "description": "As a student, I want to track my progress in real-time so I can stay motivated.",
+      "acceptance_criteria": [
+        "Given I am on my dashboard, when I complete a module, my progress updates immediately.",
+        "I receive notifications for milestones achieved and upcoming deadlines.",
+        "Progress data is visualized in an easy-to-understand format."
+      ],
+      "priority": "high",
+      "complexity": "medium"
+    },
+    {
+      "title": "Access a searchable resource library",
+      "description": "As a student, I want to access a resource library so I can find materials relevant to my courses.",
+      "acceptance_criteria": [
+        "Given I am in the resource section, when I search for a topic, relevant materials appear instantly.",
+        "I can filter resources by type, difficulty, and subject.",
+        "Each resource includes a brief description and user ratings."
+      ],
+      "priority": "medium",
+      "complexity": "medium"
+    }
+  ]
+}

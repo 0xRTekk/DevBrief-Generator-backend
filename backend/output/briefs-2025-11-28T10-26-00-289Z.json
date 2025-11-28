@@ -1,0 +1,61 @@
+{
+  "level": "senior",
+  "domain": "FinTech",
+  "tech_focus": "backend",
+  "stack": [
+    "Node.js",
+    "PostgreSQL"
+  ],
+  "duration": "4 weeks",
+  "brief": "Develop a robust API for real-time fraud detection in transactions.",
+  "business_problem": "Financial institutions face increasing fraud risks, jeopardizing customer trust and revenue. A swift, reliable detection system is crucial to mitigate losses and enhance security.",
+  "target_users": "Fraud analysts and transaction monitoring teams in financial institutions",
+  "goals": [
+    "Design a scalable API for transaction data ingestion",
+    "Implement real-time fraud detection algorithms",
+    "Create comprehensive logging for audit and analysis"
+  ],
+  "deliverables": [
+    "Fully functional RESTful API with documentation",
+    "Fraud detection model integrated with the API",
+    "Deployment scripts for cloud infrastructure"
+  ],
+  "assessment_criteria": "API performance under load, accuracy of fraud detection, and code maintainability",
+  "company_size": "Large Enterprise",
+  "complexity": "high",
+  "user_stories": [
+    {
+      "title": "Ingest transaction data",
+      "description": "As a fraud analyst, I want to ingest transaction data in real-time so I can monitor for suspicious activities immediately.",
+      "acceptance_criteria": [
+        "Given the API is running, when I send a transaction payload, it is processed within 200 milliseconds.",
+        "The system logs each transaction with a unique identifier for tracking.",
+        "Ingestion supports batch processing of up to 100 transactions at once."
+      ],
+      "priority": "high",
+      "complexity": "high"
+    },
+    {
+      "title": "Detect fraudulent transactions",
+      "description": "As a fraud analyst, I want to receive alerts for potentially fraudulent transactions so I can take immediate action.",
+      "acceptance_criteria": [
+        "Given a transaction is processed, when it meets fraud criteria, an alert is generated within 1 second.",
+        "Alerts include transaction details and risk score for prioritization.",
+        "The system allows configuration of fraud detection parameters."
+      ],
+      "priority": "high",
+      "complexity": "high"
+    },
+    {
+      "title": "Audit transaction logs",
+      "description": "As a compliance officer, I want to audit transaction logs so I can ensure regulatory compliance.",
+      "acceptance_criteria": [
+        "Given I access the logging endpoint, I can retrieve logs for any date range.",
+        "Logs include transaction details, processing time, and fraud detection outcomes.",
+        "The system supports exporting logs in CSV format for external analysis."
+      ],
+      "priority": "medium",
+      "complexity": "high"
+    }
+  ]
+}
